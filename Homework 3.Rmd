@@ -1,0 +1,61 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+```{r}
+library(readr)
+library(dplyr)
+dataset_results<- read.csv("C:\\Users\\julia\\Downloads\\primary_results.csv")
+
+#Número 1 Votos de Florida
+
+dataset_results %>%
+  filter(state=="Florida")
+
+```
+#2. Operadores Logicos
+```{r}
+#2.1 Votos para Hillary Clinton y Donald Trump
+dataset_results %>%
+  filter(candidate== "Hillary Clinton" | candidate== "Donald Trump")
+```
+```{r}
+#2.2 Partido Democrata y condado Shelby
+dataset_results%>%
+  filter(party=="Democrat", county=="Shelby")
+```
+
+```{r}
+#2.3 votos Alabama y mayor a 15000
+dataset_results%>%
+  filter(state=="Alabama", votes>15000)
+
+```
+```{r}
+dataset_results %>%
+  filter(state=="Texas", county=="Denton")%>%
+select( party, candidate, votes)%>%
+  arrange(desc(votes))
+```
+```{r}
+dataset_results %>%
+  filter(party=="Republican", candidate=="Ted Cruz", state=="Alaska")%>%
+  mutate(vote_count=votes/fraction_votes)%>%
+  arrange(desc(vote_count))
+
+```
+
